@@ -139,8 +139,11 @@ export default function TemplateLibraryPage() {
                   </div>
                 </div>
                 
-                <div style={{ padding: "12px 20px", fontSize: "12px", color: "var(--text-muted)" }}>
-                  Category: {template.category}
+                <div style={{ padding: "12px 20px", fontSize: "12px", color: "var(--text-muted)", display: "flex", justifyContent: "space-between" }}>
+                  <span>Category: {template.category}</span>
+                  {template.last_updated_time && (
+                    <span>Last updated: {new Date(template.last_updated_time).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                  )}
                 </div>
               </div>
             ))}

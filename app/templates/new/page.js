@@ -11,6 +11,7 @@ export default function NewTemplatePage() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("MARKETING");
   const [language, setLanguage] = useState("en_US");
+  const [headerType, setHeaderType] = useState("NONE");
   const [bodyText, setBodyText] = useState("");
   
   const [submitting, setSubmitting] = useState(false);
@@ -33,7 +34,8 @@ export default function NewTemplatePage() {
         name: name.trim(),
         language,
         category,
-        text: bodyText.trim()
+        text: bodyText.trim(),
+        headerType
       });
 
       setSuccess(`Template submitted to Meta successfully! It will appear in the templates list once approved (usually takes 1-2 minutes).`);
@@ -97,7 +99,7 @@ export default function NewTemplatePage() {
               />
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "20px" }}>
               <div className="form-group">
                 <label className="form-label">Category</label>
                 <select
@@ -124,6 +126,20 @@ export default function NewTemplatePage() {
                   <option value="hi">Hindi</option>
                   <option value="mr">Marathi</option>
                   <option value="gu">Gujarati</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Media Header</label>
+                <select
+                  className="form-select"
+                  value={headerType}
+                  onChange={(e) => setHeaderType(e.target.value)}
+                >
+                  <option value="NONE">None (Text Only)</option>
+                  <option value="IMAGE">Image</option>
+                  <option value="VIDEO">Video</option>
+                  <option value="DOCUMENT">Document (PDF)</option>
                 </select>
               </div>
             </div>
