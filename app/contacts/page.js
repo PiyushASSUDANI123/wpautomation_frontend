@@ -197,7 +197,7 @@ export default function ContactsPage() {
                 <div style={{ padding: "10px 12px", background: "var(--accent-muted)", color: "var(--text-primary)", borderRadius: "8px", fontSize: "12px", marginBottom: "16px", display: "flex", gap: "8px" }}>
                   <div style={{ color: "var(--accent)", marginTop: "2px" }}>ℹ️</div>
                   <div>
-                    <strong>Format Required:</strong> Your file should have the <strong>User Name in the first column (Column A)</strong> and the <strong>Phone Number in the second column (Column B)</strong>. (Country code `+91` is automatically added).
+                    <strong>Format Required:</strong> Your file should have 4 columns: <strong>S.No, Name, Mobile Number, and City</strong>. Mobile number must be in the 3rd column (Column C). (Country code `+91` is automatically added).
                   </div>
                 </div>
 
