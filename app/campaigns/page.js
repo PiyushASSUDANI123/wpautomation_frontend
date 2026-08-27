@@ -1,0 +1,139 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Plus, Megaphone } from "lucide-react";
+import { getCampaigns } from "../lib/api";
+import { format } from "date-fns";
+
+export default function CampaignsPage() {
+  const [campaigns, setCampaigns] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      try {
+        const res = await getCampaigns();
+        setCampaigns(res.data);
+      } catch (err) {
+        console.error("Failed to fetch campaigns:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCampaigns();
+  }, []);
+
+  return (
+    <div className="page-container">
+      <div className="page-header">
+        <h1 className="page-title">Campaigns</h1>
+        <Link href="/campaigns/new" className="btn-primary">
+          <Plus size={18} />
+          New Campaign
+        </Link>
+      </div>
+
+      <div className="page-content">
+        {loading ? (
+          <div className="loading-container">
+            <div className="loading-spinner" />
+          </div>
+        ) : campaigns.length === 0 ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "80px 20px",
+              textAlign: "center",
+              color: "var(--text-secondary)",
+            }}
+          >
+            <div
+              style={{
+                width: "72px",
+                height: "72px",
+                background: "var(--bg-tertiary)",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: "16px",
+                color: "var(--accent)",
+              }}
+            >
+              <Megaphone size={32} />
+            </div>
+            <h2
+              style={{
+                fontSize: "20px",
+                fontWeight: "600",
+                color: "var(--text-primary)",
+                marginBottom: "8px",
+              }}
+            >
+              No campaigns yet
+            </h2>
+            <p style={{ fontSize: "14px", maxWidth: "400px", lineHeight: 1.6 }}>
+              Create your first campaign by uploading an Excel file with phone
+              numbers and selecting a message template.
+            </p>
+            <Link
+              href="/campaigns/new"
+              className="btn-primary"
+              style={{ marginTop: "24px" }}
+            >
+              <Plus size={18} />
+              Create Campaign
+            </Link>
+          </div>
+        ) : (
+          <div className="campaign-grid">
+            {campaigns.map((campaign) => (
+              <div key={campaign.id} className="ui-card animate-fade-in" style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className="ui-card-header">
+                  <h3 className="ui-card-title">{campaign.name}</h3>
+                  <div className="ui-card-badge">
+                    {campaign.created_at ? format(new Date(campaign.created_at), "MMM d, yyyy") : ""}
+                  </div>
+                </div>
+
+                <div className="ui-card-subtitle" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Megaphone size={16} /> 
+                  Template: <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{campaign.template_name}</span>
+                </div>
+
+                <div className="campaign-stats" style={{ flex: 1 }}>
+                  <div className="campaign-stat">
+                    <div className="campaign-stat-value">{campaign.total_sent || 0}</div>
+                    <div className="campaign-stat-label">Sent</div>
+                  </div>
+                  <div className="campaign-stat">
+                    <div className="campaign-stat-value">{campaign.total_delivered || 0}</div>
+                    <div className="campaign-stat-label delivered">Delivered</div>
+                  </div>
+                  <div className="campaign-stat">
+                    <div className="campaign-stat-value">{campaign.total_read || 0}</div>
+                    <div className="campaign-stat-label read">Read</div>
+                  </div>
+                  <div className="campaign-stat">
+                    <div className="campaign-stat-value">{campaign.total_failed || 0}</div>
+                    <div className="campaign-stat-label failed">Failed</div>
+                  </div>
+                </div>
+
+                <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border-color)', textAlign: 'center' }}>
+                  <Link href={`/campaigns/${campaign.id}`} style={{ color: 'var(--accent)', fontWeight: 600, fontSize: '14px', textDecoration: 'none', display: 'inline-block', width: '100%' }}>
+                    View Recipients →
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
