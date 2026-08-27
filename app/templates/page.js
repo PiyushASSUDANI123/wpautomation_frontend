@@ -43,9 +43,14 @@ export default function TemplateLibraryPage() {
     <div className="page-container">
       <div className="page-header">
         <h1 className="page-title">Template Library</h1>
-        <button onClick={fetchTemplates} disabled={loading} className="btn-secondary">
-          Refresh Templates
-        </button>
+        <div style={{ display: "flex", gap: "12px" }}>
+          <button onClick={fetchTemplates} disabled={loading} className="btn-secondary">
+            Refresh
+          </button>
+          <a href="/templates/new" className="btn-primary">
+            + Create Template
+          </a>
+        </div>
       </div>
 
       <div className="page-content">
@@ -96,9 +101,12 @@ export default function TemplateLibraryPage() {
             >
               No templates found
             </h2>
-            <p style={{ fontSize: "14px", maxWidth: "400px", lineHeight: 1.6 }}>
-              Create templates in your WhatsApp Business Manager.
+            <p style={{ fontSize: "14px", maxWidth: "400px", lineHeight: 1.6, marginBottom: "20px" }}>
+              Create your first custom template to start sending messages.
             </p>
+            <a href="/templates/new" className="btn-primary">
+              Create Template
+            </a>
           </div>
         ) : (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "20px" }}>
