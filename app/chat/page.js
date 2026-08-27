@@ -179,7 +179,7 @@ export default function ChatPage() {
             <div className="empty-icon">
               <MessageCircle size={32} />
             </div>
-            <h2>WP Automation</h2>
+            <h2>MAA AAINATH GOU SEVA SAMITI BALOTRA</h2>
             <p>
               Select a contact from the sidebar to view your conversation
               history and send messages. Inbound messages will appear here in

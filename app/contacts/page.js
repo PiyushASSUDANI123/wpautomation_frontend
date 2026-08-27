@@ -190,7 +190,17 @@ export default function ContactsPage() {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Excel / CSV File</label>
+                <label className="form-label" style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                  <span>Excel / CSV File</span>
+                </label>
+                
+                <div style={{ padding: "10px 12px", background: "var(--accent-muted)", color: "var(--text-primary)", borderRadius: "8px", fontSize: "12px", marginBottom: "16px", display: "flex", gap: "8px" }}>
+                  <div style={{ color: "var(--accent)", marginTop: "2px" }}>ℹ️</div>
+                  <div>
+                    <strong>Format Required:</strong> Your file should have the <strong>User Name in the first column (Column A)</strong> and the <strong>Phone Number in the second column (Column B)</strong>. (Country code `+91` is automatically added).
+                  </div>
+                </div>
+
                 {file ? (
                   <div style={{ padding: "16px", background: "var(--bg-tertiary)", border: "1px solid var(--border-color)", borderRadius: "12px", display: "flex", alignItems: "center", gap: "12px" }}>
                     <FileSpreadsheet size={24} style={{ color: "var(--accent)" }} />

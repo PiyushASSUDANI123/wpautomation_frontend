@@ -52,6 +52,15 @@ export default function MessageBubble({ message }) {
       className={`message-row ${isOutbound ? "outbound" : "inbound"} animate-fade-in`}
     >
       <div className={`message-bubble ${isOutbound ? "outbound" : "inbound"}`}>
+        {message.media_url && (
+          <div className="message-media">
+            {message.media_url.endsWith(".mp4") || message.media_url.endsWith(".webm") || message.media_url?.includes("video/upload") ? (
+              <video src={message.media_url} controls className="max-w-full rounded-md mb-2" style={{ maxHeight: "200px" }} />
+            ) : (
+              <img src={message.media_url} alt="Media" className="max-w-full rounded-md mb-2" style={{ maxHeight: "200px", objectFit: "contain" }} />
+            )}
+          </div>
+        )}
         <div className="message-text">{message.message_body}</div>
         <div className="message-meta">
           <span className="message-time">{formatTime(message.timestamp)}</span>

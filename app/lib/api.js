@@ -51,4 +51,17 @@ export const createCampaign = (formData) =>
 
 export const getTemplates = () => api.get("/api/templates");
 
+// ============================================
+// Media Library
+// ============================================
+
+export const getMedia = () => api.get("/api/media");
+
+export const uploadMedia = (formData) =>
+  api.post("/api/media", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+
+export const deleteMedia = (id) => api.delete(`/api/media/${id}`);
+
 export default api;

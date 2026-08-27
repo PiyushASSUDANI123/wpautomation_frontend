@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MessageCircle, Megaphone, Activity, Users, Reply, Settings } from "lucide-react";
+import { MessageCircle, Megaphone, Activity, Users, Reply, Settings, Image as ImageIcon, LayoutTemplate } from "lucide-react";
 
 export default function SidebarNav() {
   const pathname = usePathname();
@@ -17,11 +17,13 @@ export default function SidebarNav() {
     { href: "/replies", icon: Reply, label: "All Replies" },
     { href: "/contacts", icon: Users, label: "Contact Lists" },
     { href: "/campaigns", icon: Megaphone, label: "Campaigns" },
+    { href: "/media", icon: ImageIcon, label: "Media Library" },
+    { href: "/templates", icon: LayoutTemplate, label: "Templates" },
   ];
 
   return (
     <nav className="sidebar-nav">
-      <div className="nav-logo">GSC</div>
+      <div className="nav-logo text-[10px] leading-tight text-center">MAA<br/>AAINATH</div>
 
       {navItems.map((item) => {
         const isActive =

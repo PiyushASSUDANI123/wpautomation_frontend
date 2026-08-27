@@ -9,9 +9,8 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "WP Automation — WhatsApp Dashboard",
-  description:
-    "WhatsApp Business Cloud API Dashboard with live chat inbox, campaign management, and real-time message tracking.",
+  title: "MAA AAINATH GOU SEVA SAMITI BALOTRA",
+  description: "WhatsApp Automation Dashboard",
 };
 
 export default function RootLayout({ children }) {
