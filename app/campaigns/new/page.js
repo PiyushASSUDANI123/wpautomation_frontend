@@ -11,7 +11,7 @@ export default function NewCampaignPage() {
   const [name, setName] = useState("");
   const [templateName, setTemplateName] = useState("");
   const [languageCode, setLanguageCode] = useState("en_US");
-  const [contactListId, setContactListId] = useState("");
+  const [selectedListIds, setSelectedListIds] = useState([]);
   const [mediaFile, setMediaFile] = useState(null);
   
   const [templates, setTemplates] = useState([]);
@@ -58,8 +58,8 @@ export default function NewCampaignPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name.trim() || !templateName.trim() || !contactListId) {
-      setError("Please fill all fields and select a contact list");
+    if (!name.trim() || !templateName.trim() || selectedListIds.length === 0) {
+      setError("Please fill all fields and select at least one contact list");
       return;
     }
 
@@ -71,7 +71,7 @@ export default function NewCampaignPage() {
       formData.append("name", name.trim());
       formData.append("template_name", templateName.trim());
       formData.append("language_code", languageCode);
-      formData.append("contact_list_id", contactListId);
+      formData.append("contact_list_ids", JSON.stringify(selectedListIds));
       if (mediaFile) {
         formData.append("mediaFile", mediaFile);
       }
@@ -144,7 +144,12 @@ export default function NewCampaignPage() {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Meta Template</label>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <label className="form-label">Meta Template</label>
+                <Link href="/templates/new" style={{ fontSize: "12px", color: "var(--accent)", textDecoration: "none", fontWeight: "500" }}>
+                  + Create New
+                </Link>
+              </div>
               {loadingTemplates ? (
                 <div style={{ padding: "14px 16px", background: "var(--bg-tertiary)", borderRadius: "12px", color: "var(--text-secondary)" }}>
                   Fetching approved templates from Meta...
@@ -188,7 +193,7 @@ export default function NewCampaignPage() {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Select Contact List (Sheet)</label>
+              <label className="form-label">Select Contact Lists (Sheets)</label>
               {loadingLists ? (
                 <div style={{ padding: "14px 16px", background: "var(--bg-tertiary)", borderRadius: "12px", color: "var(--text-secondary)" }}>
                   Loading lists...
@@ -201,19 +206,28 @@ export default function NewCampaignPage() {
                   </Link>
                 </div>
               ) : (
-                <select
-                  className="form-select"
-                  value={contactListId}
-                  onChange={(e) => setContactListId(e.target.value)}
-                  required
-                >
-                  <option value="" disabled>-- Select a saved sheet --</option>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", background: "var(--bg-tertiary)", padding: "16px", borderRadius: "12px", border: "1px solid var(--border-color)", maxHeight: "240px", overflowY: "auto" }}>
                   {contactLists.map((list) => (
-                    <option key={list.id} value={list.id}>
-                      {list.name} ({list.member_count || 0} contacts)
-                    </option>
+                    <label key={list.id} style={{ display: "flex", alignItems: "center", gap: "12px", cursor: "pointer", padding: "8px", borderRadius: "8px", transition: "background 0.2s" }} className="hover:bg-var(--bg-secondary)">
+                      <input
+                        type="checkbox"
+                        style={{ width: "18px", height: "18px", accentColor: "var(--accent)", cursor: "pointer" }}
+                        checked={selectedListIds.includes(list.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedListIds([...selectedListIds, list.id]);
+                          } else {
+                            setSelectedListIds(selectedListIds.filter(id => id !== list.id));
+                          }
+                        }}
+                      />
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <span style={{ fontSize: "14px", fontWeight: "500", color: "var(--text-primary)" }}>{list.name}</span>
+                        <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>{list.member_count || 0} contacts</span>
+                      </div>
+                    </label>
                   ))}
-                </select>
+                </div>
               )}
             </div>
 
@@ -221,7 +235,7 @@ export default function NewCampaignPage() {
               <button
                 type="submit"
                 className="btn-primary"
-                disabled={submitting || !name.trim() || !templateName.trim() || !contactListId}
+                disabled={submitting || !name.trim() || !templateName.trim() || selectedListIds.length === 0}
               >
                 {submitting ? (
                   <>

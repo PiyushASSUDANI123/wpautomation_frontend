@@ -16,6 +16,10 @@ export const getContacts = () => api.get("/api/contacts");
 
 export const getContact = (id) => api.get(`/api/contacts/${id}`);
 
+export const getContactLists = () => api.get("/api/contact_lists");
+
+export const getListContacts = (id) => api.get(`/api/contact_lists/${id}/contacts`);
+
 // ============================================
 // Messages
 // ============================================

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Upload, Users, FileSpreadsheet, X, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
 import api from "../lib/api";
 import { format } from "date-fns";
 
@@ -137,9 +138,21 @@ export default function ContactsPage() {
                     {list.member_count || 0} Contacts
                   </div>
                 </div>
-                <div className="ui-card-subtitle" style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "12px" }}>
-                  <FileSpreadsheet size={16} />
-                  Created: {format(new Date(list.created_at), "MMM d, yyyy")}
+                <div className="ui-card-subtitle" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "12px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <FileSpreadsheet size={16} />
+                    Created: {format(new Date(list.created_at), "MMM d, yyyy")}
+                  </div>
+                  <div style={{ display: "flex", gap: "8px" }}>
+                    <Link href={`/contacts/${list.id}`} className="btn-secondary" style={{ padding: "6px 12px", fontSize: "12px" }}>
+                      View Contacts
+                    </Link>
+                    {list.file_url && (
+                      <a href={list.file_url} target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding: "6px 12px", fontSize: "12px" }}>
+                        Download CSV
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
