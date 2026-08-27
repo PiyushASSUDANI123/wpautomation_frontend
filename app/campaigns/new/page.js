@@ -32,7 +32,10 @@ export default function NewCampaignPage() {
           api.get("/api/templates")
         ]);
         setContactLists(listsRes.data);
-        setTemplates(templatesRes.data);
+        
+        // For campaigns, ONLY show APPROVED templates
+        const approvedOnly = (templatesRes.data || []).filter(t => t.status === 'APPROVED');
+        setTemplates(approvedOnly);
       } catch (err) {
         console.error("Failed to fetch data:", err);
         setError("Failed to load required data. Please refresh and try again.");
