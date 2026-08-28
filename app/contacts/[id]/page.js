@@ -16,7 +16,7 @@ export default function ListContactsPage() {
     fetchContacts();
   }, [id]);
 
-  const fetchContacts = async () => {
+  async function fetchContacts() {
     try {
       setLoading(true);
       const res = await getListContacts(id);

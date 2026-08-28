@@ -14,7 +14,7 @@ export default function MediaLibraryPage() {
     fetchMedia();
   }, []);
 
-  const fetchMedia = async () => {
+  async function fetchMedia() {
     try {
       setLoading(true);
       const res = await getMedia();

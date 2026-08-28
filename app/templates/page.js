@@ -13,7 +13,7 @@ export default function TemplateLibraryPage() {
     fetchTemplates();
   }, []);
 
-  const fetchTemplates = async () => {
+  async function fetchTemplates() {
     try {
       setLoading(true);
       const res = await getTemplates();
