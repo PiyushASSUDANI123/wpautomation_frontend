@@ -61,18 +61,23 @@ export default function LoginPage() {
         textAlign: "center"
       }}>
         <div style={{
-          width: "80px",
-          height: "80px",
-          background: "linear-gradient(135deg, var(--accent) 0%, #ff6b00 100%)",
-          borderRadius: "24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          width: "100px",
+          height: "100px",
           margin: "0 auto 24px",
-          color: "white",
-          boxShadow: "0 8px 24px rgba(255, 153, 51, 0.4)"
         }}>
-          <Leaf size={40} />
+          <img 
+            src="/logo.png" 
+            alt="Maa Aainath Logo" 
+            style={{ 
+              width: "100%", 
+              height: "100%", 
+              objectFit: "contain", 
+              borderRadius: "24px", 
+              backgroundColor: "white", 
+              padding: "4px", 
+              boxShadow: "0 8px 24px rgba(0,0,0,0.1)" 
+            }} 
+          />
         </div>
         
         <h1 style={{
@@ -82,7 +87,7 @@ export default function LoginPage() {
           marginBottom: "8px",
           letterSpacing: "-0.02em"
         }}>
-          Gau Shala Connect
+          MAA AAINATH GOU SEVA SAMITI BALOTRA
         </h1>
         <p style={{
           fontSize: "15px",
