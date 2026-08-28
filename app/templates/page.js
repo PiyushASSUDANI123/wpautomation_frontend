@@ -129,7 +129,17 @@ export default function TemplateLibraryPage() {
                     {template.components.map((comp, idx) => (
                       <div key={idx} style={{ fontSize: "14px" }}>
                         <span style={{ fontWeight: "600", color: "var(--text-secondary)", textTransform: "capitalize", marginRight: "8px" }}>{comp.type}:</span>
-                        {comp.format === "IMAGE" || comp.format === "VIDEO" || comp.format === "DOCUMENT" ? (
+                        {comp.type === "BUTTONS" ? (
+                          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "4px" }}>
+                            {comp.buttons?.map((btn, bIdx) => (
+                              <div key={bIdx} style={{ padding: "4px 12px", background: "white", border: "1px solid var(--border-color)", borderRadius: "16px", fontSize: "12px", color: "var(--accent)", fontWeight: "600", display: "flex", alignItems: "center", gap: "4px" }}>
+                                {btn.type === "URL" && "🔗 "}
+                                {btn.type === "PHONE_NUMBER" && "📞 "}
+                                {btn.text}
+                              </div>
+                            ))}
+                          </div>
+                        ) : comp.format === "IMAGE" || comp.format === "VIDEO" || comp.format === "DOCUMENT" ? (
                           <span style={{ color: "var(--accent)", fontWeight: "600" }}>[{comp.format} MEDIA]</span>
                         ) : (
                           <span style={{ color: "var(--text-primary)", whiteSpace: "pre-wrap" }}>{comp.text}</span>

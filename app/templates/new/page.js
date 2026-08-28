@@ -13,6 +13,28 @@ export default function NewTemplatePage() {
   const [language, setLanguage] = useState("en_US");
   const [headerType, setHeaderType] = useState("NONE");
   const [bodyText, setBodyText] = useState("");
+  const [buttons, setButtons] = useState([]);
+  
+  const handleAddButton = (type) => {
+    if (buttons.length >= 3) return;
+    if (type === "QUICK_REPLY") {
+      setButtons([...buttons, { type: "QUICK_REPLY", text: "" }]);
+    } else if (type === "URL") {
+      setButtons([...buttons, { type: "URL", text: "", url: "" }]);
+    } else if (type === "PHONE_NUMBER") {
+      setButtons([...buttons, { type: "PHONE_NUMBER", text: "", phone_number: "" }]);
+    }
+  };
+
+  const handleRemoveButton = (index) => {
+    setButtons(buttons.filter((_, i) => i !== index));
+  };
+
+  const handleButtonChange = (index, field, value) => {
+    const newButtons = [...buttons];
+    newButtons[index][field] = value;
+    setButtons(newButtons);
+  };
   
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
@@ -35,7 +57,8 @@ export default function NewTemplatePage() {
         language,
         category,
         text: bodyText.trim(),
-        headerType
+        headerType,
+        buttons: buttons.length > 0 ? buttons : undefined
       });
 
       setSuccess(`Template submitted to Meta successfully! It will appear in the templates list once approved (usually takes 1-2 minutes).`);
@@ -158,6 +181,47 @@ export default function NewTemplatePage() {
                 required
                 style={{ resize: "vertical" }}
               />
+            </div>
+
+            <div className="form-group" style={{ marginTop: "24px" }}>
+              <label className="form-label">Buttons (Optional)</label>
+              <p style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "16px" }}>
+                Add up to 3 interactive buttons (Quick Replies or Calls to Action).
+              </p>
+              
+              {buttons.map((btn, idx) => (
+                <div key={idx} style={{ padding: "16px", background: "var(--bg-tertiary)", border: "1px solid var(--border-color)", borderRadius: "8px", marginBottom: "12px", position: "relative" }}>
+                  <button type="button" onClick={() => handleRemoveButton(idx)} style={{ position: "absolute", top: "12px", right: "12px", background: "none", border: "none", color: "red", cursor: "pointer" }}>
+                    <X size={16} />
+                  </button>
+                  <div style={{ fontWeight: "600", fontSize: "12px", color: "var(--text-secondary)", marginBottom: "12px" }}>
+                    {btn.type.replace("_", " ")} BUTTON
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: btn.type === "QUICK_REPLY" ? "1fr" : "1fr 1fr", gap: "12px" }}>
+                    <div>
+                      <input type="text" className="form-input" placeholder="Button Text (Max 25 chars)" value={btn.text} onChange={(e) => handleButtonChange(idx, "text", e.target.value)} maxLength={25} required />
+                    </div>
+                    {btn.type === "URL" && (
+                      <div>
+                        <input type="url" className="form-input" placeholder="https://example.com" value={btn.url} onChange={(e) => handleButtonChange(idx, "url", e.target.value)} required />
+                      </div>
+                    )}
+                    {btn.type === "PHONE_NUMBER" && (
+                      <div>
+                        <input type="text" className="form-input" placeholder="+1234567890" value={btn.phone_number} onChange={(e) => handleButtonChange(idx, "phone_number", e.target.value)} required />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+
+              {buttons.length < 3 && (
+                <div style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
+                  <button type="button" className="btn-secondary" onClick={() => handleAddButton("QUICK_REPLY")} style={{ fontSize: "13px", padding: "6px 12px" }}>+ Quick Reply</button>
+                  <button type="button" className="btn-secondary" onClick={() => handleAddButton("URL")} style={{ fontSize: "13px", padding: "6px 12px" }}>+ URL Link</button>
+                  <button type="button" className="btn-secondary" onClick={() => handleAddButton("PHONE_NUMBER")} style={{ fontSize: "13px", padding: "6px 12px" }}>+ Phone</button>
+                </div>
+              )}
             </div>
 
             <div style={{ display: "flex", gap: "16px", marginTop: "40px" }}>
