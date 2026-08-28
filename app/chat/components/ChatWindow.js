@@ -14,7 +14,7 @@ export default function ChatWindow({
 }) {
   const messagesEndRef = useRef(null);
 
-  // Auto-scroll to bottom on new messages
+  
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -26,7 +26,7 @@ export default function ChatWindow({
     return format(d, "MMMM d, yyyy");
   };
 
-  // Group messages by date for date separators
+  
   const renderMessages = () => {
     if (!messages || messages.length === 0) {
       return (
@@ -70,7 +70,7 @@ export default function ChatWindow({
 
   return (
     <div className="chat-window">
-      {/* Header */}
+      {}
       <div className="chat-header">
         <div className="contact-avatar">
           {contact.name
@@ -113,7 +113,7 @@ export default function ChatWindow({
         </div>
       </div>
 
-      {/* Messages */}
+      {}
       <div className="chat-messages">
         {loading ? (
           <div className="loading-container">
@@ -127,7 +127,7 @@ export default function ChatWindow({
         )}
       </div>
 
-      {/* Input */}
+      {}
       <ChatInput
         contactId={contact.id}
         windowInfo={windowInfo}

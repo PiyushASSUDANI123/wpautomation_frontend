@@ -33,7 +33,7 @@ export default function NewCampaignPage() {
         ]);
         setContactLists(listsRes.data);
         
-        // For campaigns, ONLY show APPROVED templates
+        
         const approvedOnly = (templatesRes.data || []).filter(t => t.status === 'APPROVED');
         setTemplates(approvedOnly);
       } catch (err) {
@@ -87,7 +87,7 @@ export default function NewCampaignPage() {
         `Campaign "${res.data.campaign.name}" launched! Processing ${res.data.campaign.total_recipients} recipients...`
       );
 
-      // Redirect after short delay
+      
       setTimeout(() => {
         router.push("/campaigns");
       }, 2000);
@@ -113,7 +113,7 @@ export default function NewCampaignPage() {
       <div className="page-content" style={{ maxWidth: "720px" }}>
         <div className="ui-card">
           <form onSubmit={handleSubmit}>
-            {/* Error */}
+            {}
             {error && (
               <div className="window-warning" style={{ marginBottom: "24px" }}>
                 <span className="window-warning-text">{error}</span>
@@ -127,7 +127,7 @@ export default function NewCampaignPage() {
               </div>
             )}
 
-            {/* Success */}
+            {}
             {success && (
               <div style={{ padding: "16px", background: "var(--bubble-outbound)", border: "1px solid var(--secondary-accent-muted)", borderRadius: "12px", marginBottom: "24px", color: "var(--secondary-accent)", fontSize: "15px", fontWeight: "600" }}>
                 ✅ {success}

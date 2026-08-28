@@ -8,9 +8,9 @@ const api = axios.create({
   },
 });
 
-// ============================================
-// Contacts
-// ============================================
+
+
+
 
 export const getContacts = () => api.get("/api/contacts");
 
@@ -20,9 +20,9 @@ export const getContactLists = () => api.get("/api/contact_lists");
 
 export const getListContacts = (id) => api.get(`/api/contact_lists/${id}/contacts`);
 
-// ============================================
-// Messages
-// ============================================
+
+
+
 
 export const getMessages = (contactId, limit = 100, offset = 0) =>
   api.get(`/api/messages/${contactId}`, { params: { limit, offset } });
@@ -36,9 +36,9 @@ export const sendTemplate = (contactId, templateName, languageCode = "en_US") =>
     language_code: languageCode,
   });
 
-// ============================================
-// Campaigns
-// ============================================
+
+
+
 
 export const getCampaigns = () => api.get("/api/campaigns");
 
@@ -49,15 +49,15 @@ export const createCampaign = (formData) =>
     headers: { "Content-Type": "multipart/form-data" },
   });
 
-// ============================================
-// Templates
-// ============================================
+
+
+
 
 export const getTemplates = () => api.get("/api/templates");
 
-// ============================================
-// Media Library
-// ============================================
+
+
+
 
 export const getMedia = () => api.get("/api/media");
 

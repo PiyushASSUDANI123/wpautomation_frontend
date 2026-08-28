@@ -43,7 +43,7 @@ export default function MediaLibraryPage() {
       console.error(err);
     } finally {
       setUploading(false);
-      e.target.value = null; // Reset input
+      e.target.value = null; 
     }
   };
 

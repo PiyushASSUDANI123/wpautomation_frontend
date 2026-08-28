@@ -1,61 +1,39 @@
 @import "tailwindcss";
 
-/* ============================================
-   Gau Shala Inspired Light Theme
-   ============================================ */
 
 :root {
-  /* Core Colors (Light, Earthy, Warm) */
-  --bg-primary: #fdfbf7;      /* Warm off-white background */
-  --bg-secondary: #ffffff;    /* Pure white for cards/panels */
-  --bg-tertiary: #f4f0e6;     /* Slightly darker for inputs/hover */
-  --bg-chat: #e9e3d3;         /* Subtle earthy tone for chat background */
-  --bg-hover: #f0ebe1;
+    --bg-primary: #fdfbf7;        --bg-secondary: #ffffff;      --bg-tertiary: #f4f0e6;       --bg-chat: #e9e3d3;           --bg-hover: #f0ebe1;
   --bg-active: #e6dfd1;
 
-  /* Accent Colors (Saffron & Green) */
-  --accent: #ff9933;          /* Saffron / Deep Orange */
-  --accent-hover: #e68a2e;
+    --accent: #ff9933;            --accent-hover: #e68a2e;
   --accent-muted: rgba(255, 153, 51, 0.15);
   
-  --secondary-accent: #4caf50; /* Earthy Green */
-  --secondary-accent-muted: rgba(76, 175, 80, 0.15);
+  --secondary-accent: #4caf50;   --secondary-accent-muted: rgba(76, 175, 80, 0.15);
 
-  /* Text */
-  --text-primary: #3e3328;    /* Deep earthy brown instead of harsh black */
-  --text-secondary: #70655b;
+    --text-primary: #3e3328;      --text-secondary: #70655b;
   --text-muted: #9c9288;
 
-  /* Bubbles */
-  --bubble-outbound: #e8f5e9; /* Light green */
-  --bubble-inbound: #ffffff;  /* White */
-  --bubble-outbound-hover: #c8e6c9;
+    --bubble-outbound: #e8f5e9;   --bubble-inbound: #ffffff;    --bubble-outbound-hover: #c8e6c9;
 
-  /* Borders */
-  --border-color: #e5dfd5;
+    --border-color: #e5dfd5;
   --border-muted: #f0ebe1;
 
-  /* Status */
-  --status-sent: #9c9288;
+    --status-sent: #9c9288;
   --status-delivered: #2196f3;
   --status-read: #2196f3;
   --status-failed: #f44336;
 
-  /* Warning */
-  --warning-bg: rgba(244, 67, 54, 0.1);
+    --warning-bg: rgba(244, 67, 54, 0.1);
   --warning-border: rgba(244, 67, 54, 0.3);
   --warning-text: #d32f2f;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(62, 51, 40, 0.05);
+    --shadow-sm: 0 1px 3px rgba(62, 51, 40, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(62, 51, 40, 0.1), 0 2px 4px -1px rgba(62, 51, 40, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(62, 51, 40, 0.1), 0 4px 6px -2px rgba(62, 51, 40, 0.05);
 
-  /* Spacing */
-  --sidebar-width: 420px;
+    --sidebar-width: 420px;
 
-  /* Font */
-  --font-sans: "Inter", var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+    --font-sans: "Inter", var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), "Fira Code", monospace;
 }
 
@@ -66,9 +44,6 @@
   --font-mono: var(--font-mono);
 }
 
-/* ============================================
-   Base Styles
-   ============================================ */
 
 * {
   box-sizing: border-box;
@@ -87,9 +62,6 @@ body {
   overflow: hidden;
 }
 
-/* ============================================
-   Scrollbar
-   ============================================ */
 
 ::-webkit-scrollbar {
   width: 6px;
@@ -108,9 +80,6 @@ body {
   background: var(--text-muted);
 }
 
-/* ============================================
-   App Layout
-   ============================================ */
 
 .app-layout {
   display: flex;
@@ -119,9 +88,6 @@ body {
   overflow: hidden;
 }
 
-/* ============================================
-   Sidebar Navigation
-   ============================================ */
 
 .sidebar-nav {
   width: 72px;
@@ -985,9 +951,6 @@ body {
   border: 1px solid var(--border-color);
 }
 
-/* ============================================
-   Animations
-   ============================================ */
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
@@ -1007,9 +970,6 @@ body {
   animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ============================================
-   Modals
-   ============================================ */
 
 .modal-overlay {
   position: fixed;

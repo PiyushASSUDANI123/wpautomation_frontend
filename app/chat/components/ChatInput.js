@@ -58,7 +58,7 @@ export default function ChatInput({ contactId, windowInfo, onMessageSent }) {
 
   return (
     <div className="chat-input-container">
-      {/* 24h Window Warning */}
+      {}
       {isWindowClosed && (
         <div className="window-warning">
           <AlertTriangle size={18} style={{ color: "var(--warning-text)", minWidth: "18px" }} />
@@ -74,7 +74,7 @@ export default function ChatInput({ contactId, windowInfo, onMessageSent }) {
         </div>
       )}
 
-      {/* Message Input */}
+      {}
       <div className="chat-input-wrapper">
         <textarea
           className="chat-input"
@@ -99,7 +99,7 @@ export default function ChatInput({ contactId, windowInfo, onMessageSent }) {
         </button>
       </div>
 
-      {/* Template Modal */}
+      {}
       {showTemplateModal && (
         <div
           className="modal-overlay"

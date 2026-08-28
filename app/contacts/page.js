@@ -11,7 +11,7 @@ export default function ContactsPage() {
   const [loading, setLoading] = useState(true);
   const [showUploadModal, setShowUploadModal] = useState(false);
   
-  // Upload State
+  
   const fileInputRef = useRef(null);
   const [listName, setListName] = useState("");
   const [file, setFile] = useState(null);
@@ -54,7 +54,7 @@ export default function ContactsPage() {
     }
     setFile(f);
     setError(null);
-    // Auto-fill name if empty
+    
     if (!listName) {
       setListName(f.name.replace(/\.[^/.]+$/, ""));
     }
@@ -160,7 +160,7 @@ export default function ContactsPage() {
         )}
       </div>
 
-      {/* Upload Modal */}
+      {}
       {showUploadModal && (
         <div className="modal-overlay" onClick={() => !uploading && setShowUploadModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>

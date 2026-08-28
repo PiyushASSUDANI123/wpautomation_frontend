@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Leaf, Eye, EyeOff } from "lucide-react"; // Using Leaf as a placeholder for Gau Shala theme
+import { Leaf, Eye, EyeOff } from "lucide-react"; 
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http:
       const res = await fetch(`${apiUrl}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -129,7 +129,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
                 required
-                style={{ paddingRight: "48px" }} // Make room for the icon
+                style={{ paddingRight: "48px" }} 
               />
               <button
                 type="button"

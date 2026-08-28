@@ -78,11 +78,11 @@ export default function ChatPage() {
         }
       }
 
-      // Update contacts list (move to top, update last message)
+      
       setContacts((prev) => {
         const idx = prev.findIndex((c) => c.id === msg.contact_id);
         if (idx === -1) {
-          // New contact - prepend
+          
           return [
             {
               id: msg.contact_id,
@@ -105,7 +105,7 @@ export default function ChatPage() {
           last_message_time: msg.timestamp,
         };
 
-        // Increment unread only if not currently viewing
+        
         if (
           msg.direction === "inbound" &&
           (!selectedContact || selectedContact.id !== msg.contact_id)
@@ -113,7 +113,7 @@ export default function ChatPage() {
           contact.unread_count = (contact.unread_count || 0) + 1;
         }
 
-        // Remove from current position and prepend
+        
         updated.splice(idx, 1);
         return [contact, ...updated];
       });
@@ -138,12 +138,12 @@ export default function ChatPage() {
     };
   }, [selectedContact]);
 
-  // Message sent callback
+  
   const handleMessageSent = (newMsg) => {
     setMessages((prev) => [...prev, newMsg]);
   };
 
-  // Filter contacts
+  
   const filteredContacts = contacts.filter((c) => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
@@ -176,8 +176,8 @@ export default function ChatPage() {
       ) : (
         <div className="chat-window">
           <div className="chat-window-empty">
-            <div className="empty-icon">
-              <MessageCircle size={32} />
+            <div className="flex justify-center mb-4">
+              <img src="/logo.png" alt="Logo" className="w-24 h-24 object-contain rounded-2xl shadow-lg bg-white" />
             </div>
             <h2>MAA AAINATH GOU SEVA SAMITI BALOTRA</h2>
             <p>

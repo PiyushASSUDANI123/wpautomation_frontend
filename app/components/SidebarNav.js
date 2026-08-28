@@ -7,7 +7,7 @@ import { MessageCircle, Megaphone, Activity, Users, Reply, Settings, Image as Im
 export default function SidebarNav() {
   const pathname = usePathname();
 
-  // Hide sidebar on login page
+  
   if (pathname === "/login") {
     return null;
   }
@@ -23,7 +23,7 @@ export default function SidebarNav() {
 
   return (
     <nav className="sidebar-nav">
-      <div className="nav-logo text-[10px] leading-tight text-center">MAA<br/>AAINATH</div>
+      <img src="/logo.png" alt="Maa Aainath Logo" className="nav-logo object-contain" style={{ background: 'white', padding: '4px' }} />
 
       {navItems.map((item) => {
         const isActive =
