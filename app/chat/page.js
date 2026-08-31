@@ -155,7 +155,7 @@ export default function ChatPage() {
   });
 
   return (
-    <>
+    <div style={{ display: "flex", height: "100%" }}>
       <ChatSidebar
         contacts={filteredContacts}
         selectedContact={selectedContact}
@@ -174,7 +174,7 @@ export default function ChatPage() {
           onMessageSent={handleMessageSent}
         />
       ) : (
-        <div className="chat-window">
+        <div className="chat-window" style={{ flex: 1 }}>
           <div className="chat-window-empty">
             <div className="flex justify-center mb-4">
               <img src="/logo.png" alt="Logo" className="w-24 h-24 object-contain rounded-2xl shadow-lg bg-white" />
@@ -188,6 +188,6 @@ export default function ChatPage() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
