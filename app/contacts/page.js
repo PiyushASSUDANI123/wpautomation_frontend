@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Upload, Users, FileSpreadsheet, X, CheckCircle2 } from "lucide-react";
+import { Upload, Users, FileSpreadsheet, X, CheckCircle2, Trash2 } from "lucide-react";
 import Link from "next/link";
-import api from "../lib/api";
+import api, { deleteContactList } from "../lib/api";
 import { format } from "date-fns";
 
 export default function ContactsPage() {
@@ -34,6 +34,17 @@ export default function ContactsPage() {
   useEffect(() => {
     fetchLists();
   }, []);
+
+  const handleDeleteList = async (id) => {
+    if (!confirm("Are you sure you want to delete this entire contact list? All contacts in this list will also be removed.")) return;
+    try {
+      await deleteContactList(id);
+      setLists(lists.filter(l => l.id !== id));
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete contact list");
+    }
+  };
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -134,8 +145,17 @@ export default function ContactsPage() {
               <div key={list.id} className="ui-card animate-fade-in">
                 <div className="ui-card-header">
                   <h3 className="ui-card-title">{list.name}</h3>
-                  <div className="ui-card-badge">
-                    {list.member_count || 0} Contacts
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div className="ui-card-badge">
+                      {list.member_count || 0} Contacts
+                    </div>
+                    <button 
+                      onClick={() => handleDeleteList(list.id)}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}
+                      title="Delete Sheet"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </div>
                 </div>
                 <div className="ui-card-subtitle" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "12px" }}>
