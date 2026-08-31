@@ -68,4 +68,9 @@ export const uploadMedia = (formData) =>
 
 export const deleteMedia = (id) => api.delete(`/api/media/${id}`);
 
+export const addContact = (contactData) => api.post("/api/contacts", contactData);
+export const deleteContact = (id) => api.delete(`/api/contacts/${id}`);
+export const deleteCampaign = (id) => api.delete(`/api/campaigns/${id}`);
+export const addContactToList = (listId, contactData) => api.post(`/api/contact_lists/${listId}/contacts`, contactData);
+
 export default api;

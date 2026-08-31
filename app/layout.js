@@ -17,9 +17,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
       <body className="min-h-full">
-        <div className="app-layout">
+        <div className="app-layout relative">
           <SidebarNav />
           {children}
+          <div style={{ position: 'absolute', bottom: '8px', right: '16px', fontSize: '11px', color: '#9c9288', zIndex: 50, pointerEvents: 'none' }}>
+            All rights reserved. Developed by Assudani Developer 9413879444
+          </div>
         </div>
       </body>
     </html>

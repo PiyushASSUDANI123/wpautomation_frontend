@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Plus, Megaphone } from "lucide-react";
-import { getCampaigns } from "../lib/api";
+import { Plus, Megaphone, Trash2 } from "lucide-react";
+import { getCampaigns, deleteCampaign } from "../lib/api";
 import { format } from "date-fns";
 
 export default function CampaignsPage() {
@@ -23,6 +23,17 @@ export default function CampaignsPage() {
     };
     fetchCampaigns();
   }, []);
+
+  const handleDelete = async (id) => {
+    if (!confirm("Are you sure you want to delete this campaign?")) return;
+    try {
+      await deleteCampaign(id);
+      setCampaigns(campaigns.filter((c) => c.id !== id));
+    } catch (err) {
+      console.error("Failed to delete campaign:", err);
+      alert("Failed to delete campaign");
+    }
+  };
 
   return (
     <div className="page-container">
@@ -95,8 +106,17 @@ export default function CampaignsPage() {
               <div key={campaign.id} className="ui-card animate-fade-in" style={{ display: 'flex', flexDirection: 'column' }}>
                 <div className="ui-card-header">
                   <h3 className="ui-card-title">{campaign.name}</h3>
-                  <div className="ui-card-badge">
-                    {campaign.created_at ? format(new Date(campaign.created_at), "MMM d, yyyy") : ""}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div className="ui-card-badge">
+                      {campaign.created_at ? format(new Date(campaign.created_at), "MMM d, yyyy") : ""}
+                    </div>
+                    <button 
+                      onClick={() => handleDelete(campaign.id)}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)' }}
+                      title="Delete Campaign"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </div>
                 </div>
 
