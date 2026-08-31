@@ -17,11 +17,23 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
       <body className="min-h-full">
-        <div className="app-layout relative">
+        <div className="app-layout" style={{ display: 'flex', height: '100vh' }}>
           <SidebarNav />
-          {children}
-          <div style={{ position: 'absolute', bottom: '8px', right: '16px', fontSize: '11px', color: '#9c9288', zIndex: 50, pointerEvents: 'none' }}>
-            All rights reserved. Developed by Assudani Developer 9413879444
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            <div style={{ flex: 1, overflowY: 'auto' }}>
+              {children}
+            </div>
+            <div style={{ 
+              padding: '12px', 
+              textAlign: 'center', 
+              fontSize: '13px', 
+              color: 'var(--text-secondary)',
+              borderTop: '1px solid var(--border-color)',
+              background: 'var(--bg-secondary)',
+              fontWeight: 500
+            }}>
+              © {new Date().getFullYear()} All rights reserved. Developed by <strong style={{ color: 'var(--accent)' }}>Assudani Developer (9413879444)</strong>
+            </div>
           </div>
         </div>
       </body>
