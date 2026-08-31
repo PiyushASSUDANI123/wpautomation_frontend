@@ -24,9 +24,9 @@ export default function RootLayout({ children }) {
               {children}
             </div>
             <div style={{ 
-              padding: '12px', 
+              padding: '10px', 
               textAlign: 'center', 
-              fontSize: '13px', 
+              fontSize: '11px', 
               color: 'var(--text-secondary)',
               borderTop: '1px solid var(--border-color)',
               background: 'var(--bg-secondary)',
