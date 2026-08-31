@@ -2,14 +2,17 @@
 
 import { useState } from "react";
 import { Send, AlertTriangle } from "lucide-react";
-import { sendMessage, sendTemplate } from "../../lib/api";
+import { sendMessage, sendTemplate, getTemplates } from "../../lib/api";
 
 export default function ChatInput({ contactId, windowInfo, onMessageSent }) {
   const [text, setText] = useState("");
   const [sending, setSending] = useState(false);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
   const [templateName, setTemplateName] = useState("");
+  const [languageCode, setLanguageCode] = useState("en_US");
   const [templateSending, setTemplateSending] = useState(false);
+  const [templates, setTemplates] = useState([]);
+  const [loadingTemplates, setLoadingTemplates] = useState(false);
 
   const isWindowClosed = windowInfo && !windowInfo.open;
 
@@ -39,12 +42,28 @@ export default function ChatInput({ contactId, windowInfo, onMessageSent }) {
     }
   };
 
+  const openTemplateModal = async () => {
+    setShowTemplateModal(true);
+    if (templates.length === 0) {
+      setLoadingTemplates(true);
+      try {
+        const res = await getTemplates();
+        const approvedOnly = (res.data || []).filter(t => t.status === 'APPROVED');
+        setTemplates(approvedOnly);
+      } catch (err) {
+        console.error("Failed to fetch templates:", err);
+      } finally {
+        setLoadingTemplates(false);
+      }
+    }
+  };
+
   const handleSendTemplate = async () => {
     if (!templateName.trim() || templateSending) return;
 
     setTemplateSending(true);
     try {
-      const res = await sendTemplate(contactId, templateName.trim());
+      const res = await sendTemplate(contactId, templateName.trim(), languageCode);
       onMessageSent(res.data);
       setTemplateName("");
       setShowTemplateModal(false);
@@ -67,7 +86,7 @@ export default function ChatInput({ contactId, windowInfo, onMessageSent }) {
           </span>
           <button
             className="template-btn"
-            onClick={() => setShowTemplateModal(true)}
+            onClick={openTemplateModal}
           >
             Send Template
           </button>
@@ -109,13 +128,37 @@ export default function ChatInput({ contactId, windowInfo, onMessageSent }) {
             <h3 className="modal-title">Send Template Message</h3>
             <div className="form-group">
               <label className="form-label">Template Name</label>
-              <input
-                className="form-input"
-                type="text"
-                placeholder="e.g., hello_world"
-                value={templateName}
-                onChange={(e) => setTemplateName(e.target.value)}
-              />
+              {loadingTemplates ? (
+                <div style={{ padding: "10px", color: "var(--text-secondary)", fontSize: "14px" }}>
+                  Loading templates...
+                </div>
+              ) : templates.length === 0 ? (
+                <div style={{ padding: "10px", color: "var(--warning-text)", fontSize: "14px" }}>
+                  No approved templates found.
+                </div>
+              ) : (
+                <select
+                  className="form-input form-select"
+                  value={templateName}
+                  onChange={(e) => {
+                    const selected = templates.find(t => t.name === e.target.value);
+                    if (selected) {
+                      setTemplateName(selected.name);
+                      setLanguageCode(selected.language);
+                    } else {
+                      setTemplateName("");
+                      setLanguageCode("en_US");
+                    }
+                  }}
+                >
+                  <option value="" disabled>-- Select a template --</option>
+                  {templates.map((tpl) => (
+                    <option key={`${tpl.name}-${tpl.language}`} value={tpl.name}>
+                      {tpl.name} ({tpl.language})
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
             <div className="modal-actions">
               <button
